@@ -1,6 +1,6 @@
-# Spring Boot, MySQL,Envers Spring Data Rest API Tutorial
+# Spring Cloud Config Server with jdbc backend Spring Boot, MySQL,Envers Spring Data Rest API
 
-Build Restful CRUD API for a simple json config application using Spring Boot, Mysql, Spring data, and Envers.
+
 
 ## Requirements
 
