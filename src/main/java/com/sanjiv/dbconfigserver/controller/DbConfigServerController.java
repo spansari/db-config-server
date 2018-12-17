@@ -24,7 +24,6 @@ import com.sanjiv.dbconfigserver.repository.AppConfigRepository;
 
 
 @RestController
-@RequestMapping("/api")
 public class DbConfigServerController {
 
     @Autowired
@@ -62,16 +61,18 @@ public class DbConfigServerController {
 
     
 
-    @GetMapping("/app/{application}/profile/{profileName}/label/{label}/key/{key}")
-    public AppConfig getAppConfigByAppNameAndModuleAndConfigTypeAndkey(@PathVariable(value = "application") String application,
+    @GetMapping("/application/{application}/profile/{profileName}/label/{label}/key/{key}")
+    public String getAppConfigByAppNameAndModuleAndConfigTypeAndkey(@PathVariable(value = "application") String application,
     		@PathVariable(value = "profileName") String profile,
     		@PathVariable(value = "label") String label,
     		@PathVariable(value = "key") String key) {
-        return appConfigRepository.findByApplicationAndProfileAndLabelAndKey(application, profile, label, key)
+            AppConfig appConfig =  appConfigRepository.findByApplicationAndProfileAndLabelAndKey(application, profile, label, key)
                 .orElseThrow(() -> new ResourceNotFoundException("AppConfig", "application, profile, label, key", application + profile+ label + key));
+
+            return appConfig.getValue();
     }
 
-    @GetMapping("/app/{application}/profile/{profileName}/label/{label}")
+    @GetMapping("/application/{application}/profile/{profileName}/label/{label}")
     public List<AppConfig> getAppConfigByApplicationAndModuleAndConfigType(@PathVariable(value = "application") String application,
     		@PathVariable(value = "profileName") String profile,
     		@PathVariable(value = "label") String label) {
@@ -79,7 +80,7 @@ public class DbConfigServerController {
         		.orElseThrow(() -> new ResourceNotFoundException("AppConfig", "application, profile, label", application + profile+ label));
     }
 
-    @GetMapping("/app/{application}/profile/{profileName}")
+    @GetMapping("/application/{application}/profile/{profileName}")
     public List<AppConfig> getAppConfigByApplicationAndModule(@PathVariable(value = "application") String application,
     		@PathVariable(value = "profileName") String profile) {
         return appConfigRepository.findByApplicationAndProfile(application, profile)
