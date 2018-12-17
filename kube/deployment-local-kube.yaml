@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-service
+  labels:
+    app: config-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+  selector:
+    app: config-service
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-service-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: config-service
+        version: v1
+    spec:
+      containers:
+        - name: config-service
+          image: config-service:0.5
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+          env:
+          - name: DB_URL
+            value: "jdbc:mysql://${MYSQL_SERVICE_SERVICE_HOST}/app_db?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false"
+          - name: DATABASE
+            value: app_db
+          - name: DB_USER
+            value: sa
+          - name: DB_PASSWORD
+            value: password
+      
