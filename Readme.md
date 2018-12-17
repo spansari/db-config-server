@@ -4,11 +4,7 @@ Build Restful CRUD API for a simple json config application using Spring Boot, M
 
 ## Requirements
 
-1. Java - 1.8.x
-
-2. Maven - 3.x.x
-
-3. Mysql - 5.x.x
+Vault: running on localhost:8200
 
 ## Steps to Setup
 
@@ -30,10 +26,10 @@ create database configdb
 **4. Build and run the app using maven**
 
 mvn package
-java -jar target/json-config-1.0.0.jar
+java -jar target/db-config-server-1.0.0.jar
 
 or using your specifc properties file:
-java -jar target\json-config-1.0.0.jar --spring.config.location=C:\local.properties
+java -jar target\db-config-server-1.0.0.jar --spring.config.name=local
 
 Alternatively, you can run the app without packaging it using -
 
@@ -41,23 +37,23 @@ Alternatively, you can run the app without packaging it using -
 mvn spring-boot:run
 ```
 
-The app will start running at <http://localhost:8080>.
+The app will start running at <http://localhost:8888>.
 
-Access Swagger-UI at <http://localhost:8080/json-config/swagger-ui.html>
+Access Swagger-UI at <http://localhost:8080/db-config-server/swagger-ui.html>
 
 ## Explore Rest APIs
 
 The app defines following CRUD APIs.
 
-    GET /json-config/api
+    GET /db-config-server/api
     
-    POST /json-config/api
+    POST /db-config-server/api
     
-    GET /json-config/api/{id}
+    GET /db-config-server/api/{id}
     
-    PUT /json-config/api/{id}
+    PUT /db-config-server/api/{id}
     
-    DELETE /json-config/api/{id}
+    DELETE /db-config-server/api/{id}
 
 You can test them using postman or any other rest client.
 
