@@ -1,32 +1,32 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-service
+  name: db-config-service
   labels:
-    app: config-service
+    app: db-config-service
 spec:
   ports:
   - port: 80
     targetPort: 8080
     name: http
   selector:
-    app: config-service
+    app: db-config-service
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: config-service-v1
+  name: db-config-service-v1
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: config-service
+        app: db-config-service
         version: v1
     spec:
       containers:
-        - name: config-service
-          image: gcr.io/mtech-wms-backstage-poc/json-config:1.0
+        - name: db-config-service
+          image: gcr.io/mtech-wms-backstage-poc/db-config-image:1.0
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080

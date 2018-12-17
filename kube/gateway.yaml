@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: config-service-gateway
+  name: db-config-service-gateway
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -16,16 +16,16 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: config-service
+  name: db-config-service
 spec:
   hosts:
   - "*"
   gateways:
-  - config-service-gateway
+  - db-config-service-gateway
   http:
   - match:
     - uri:
-        prefix: /json-config
+        prefix: /db-config-server
     route:
     - destination:
-        host: config-service
+        host: db-config-service
